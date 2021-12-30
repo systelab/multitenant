@@ -43,7 +43,7 @@ services:
       - db
       - discovery
     environment:
-      - server.port=8081
+      - server.port=8080
       - spring.sql.init.mode=always
       - spring.datasource.url=jdbc:postgresql://db:5432/multitenant
       - spring.datasource.username=multitenant
