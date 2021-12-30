@@ -18,6 +18,15 @@ public class SecurityConfiguration {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange()
+                .pathMatchers("/swagger").permitAll()
+                .pathMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**").permitAll()
+                .pathMatchers("/favicon.ico").permitAll()
+                .pathMatchers("/webjars/**").permitAll()
+                .pathMatchers("/", "/index.html").permitAll()
+                .pathMatchers("/*.js", "/*.css").permitAll()
+                .pathMatchers("/*.gif", "/*.png", "/*.svg").permitAll()
+                .pathMatchers("/*.woff2", "/*.woff", "/*.eot", "/*.ttf").permitAll()
+                .pathMatchers("/assets/**", "/i18n/**").permitAll()
                 .anyExchange().authenticated()
                 .and()
                 .oauth2ResourceServer().jwt();

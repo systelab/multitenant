@@ -20,14 +20,13 @@ public class GatewayConfig {
     @Bean
     RouteLocator gateway(RouteLocatorBuilder rlb) {
         return rlb.routes()
-                .route(routeSpec -> routeSpec.path("/s1")
+                .route(routeSpec -> routeSpec.path("/swagger")
                         .filters(gatewayFilterSpec -> gatewayFilterSpec.setPath("/swagger-ui.html"))
-                        .uri("http://localhost:8081"))
-                .route(routeSpec -> routeSpec.path("/s2")
-                        .filters(gatewayFilterSpec -> gatewayFilterSpec.setPath("/swagger-ui.html"))
-                        .uri("http://localhost:8082"))
-                .route(routeSpec -> routeSpec.path("/**")
+                        .uri("lb://laboratory-service"))
+                .route(routeSpec -> routeSpec.path("/api/**")
                         .filters(f -> f.filter(this::changeTenantFromIdToSchema))
+                        .uri("lb://laboratory-service"))
+                .route(routeSpec -> routeSpec.path("/**")
                         .uri("lb://laboratory-service"))
                 .build();
     }

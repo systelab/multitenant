@@ -1,3 +1,7 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
 
 server:
   port: 8080
@@ -42,11 +46,9 @@ spring:
     allow-bean-definition-overriding: true
   datasource:
     url: jdbc:postgresql://127.0.0.1:5432/multitenant
-    platform: postgres
     username: multitenant
     password: multitenant
     driver-class-name: org.postgresql.Driver
-    initialization-mode: never
   security:
     oauth2:
       resourceserver:
@@ -67,6 +69,9 @@ spring:
         cachecontrol:
           max-age: 120
           must-revalidate: true
+  sql:
+    init:
+      mode: never
 
 bucket4j:
   enabled: true
