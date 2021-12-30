@@ -11,5 +11,6 @@
         <module>discovery-service</module>
         <module>laboratory-service</module>
         <module>gateway-service</module>
+        <module>tenant-service</module>
     </modules>
 </project>

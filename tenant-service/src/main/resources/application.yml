@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: tenant-service
+server:
+  port: 7070
+
+logging:
+  level:
+    org:
+      springframework:
+        web: debug
