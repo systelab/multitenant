@@ -32,15 +32,17 @@ In order to install the dependencies and generate the Uber jar you must run:
 mvn clean install
 ```
 
+for each service.
+
 ## API
 
-You will find the swagger UI at http://localhost:9090/swagger-ui.html
+You will find the swagger UI at http://localhost:9090/swagger
 
 First generate a token by connection to AWS Cognito. After that authorize Swagger by copying the bearer.
 
 ## Docker
 
-### Running Postgres as a Docker image
+### Running Postgres and Redis as a Docker image
 
 docker run --name db -p 5432:5432 -e POSTGRES_DB=multitenant -e POSTGRES_USER=multitenant -e POSTGRES_PASSWORD=multitenant -d postgres
 
@@ -48,23 +50,18 @@ docker run --name redis -p 6379:6379 -d redis
 
 ### Build docker image
 
-There is an Automated Build Task in Docker Cloud in order to build the Docker Image.
-This task, triggers a new build with every git push to your source code repository to create a 'latest' image.
-There is another build rule to trigger a new tag and create a 'version-x.y.z' image
-
-You can always manually create the image with the following command:
+Build the docker images with the following command:
 
 ```bash
-docker build -t systelab/multitenant . 
+mvn spring-boot:build-image
 ```
 
 ### Run the container
 
+Use the provided docker compose configuration and run:
 ```bash
-docker run -p 8443:8443 -p 8080:8080 systelab/multitenant
+docker compose up
 ```
-
-The app will be available at https://localhost:8443/swagger-ui.html
 
 
 [git]: https://git-scm.com/
