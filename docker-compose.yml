@@ -34,6 +34,7 @@ services:
       - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
     depends_on:
       - redis
+      - discovery
   laboratory:
     image: laboratory-service:1.0
     container_name: laboratory
@@ -86,3 +87,5 @@ services:
       - "9090:9090"
     environment:
       - eureka.client.serviceUrl.defaultZone=http://discovery:8761/eureka/
+    depends_on:
+      - discovery
