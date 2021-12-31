@@ -1,8 +1,8 @@
-package com.werfen.tenant.controller;
+package com.werfen.tenant.features.controller;
 
 
-import com.werfen.tenant.model.Tenant;
-import com.werfen.tenant.service.TenantService;
+import com.werfen.tenant.features.model.Tenant;
+import com.werfen.tenant.features.service.TenantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;

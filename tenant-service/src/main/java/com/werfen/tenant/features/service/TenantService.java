@@ -1,7 +1,7 @@
-package com.werfen.tenant.service;
+package com.werfen.tenant.features.service;
 
-import com.werfen.tenant.model.Tenant;
-import com.werfen.tenant.repository.TenantRepository;
+import com.werfen.tenant.features.model.Tenant;
+import com.werfen.tenant.features.repository.TenantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

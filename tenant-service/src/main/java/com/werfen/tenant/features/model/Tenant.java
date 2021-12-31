@@ -1,4 +1,4 @@
-package com.werfen.tenant.model;
+package com.werfen.tenant.features.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

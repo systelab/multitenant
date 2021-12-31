@@ -1,8 +1,7 @@
-package com.werfen.tenant.repository;
+package com.werfen.tenant.features.repository;
 
-import com.werfen.tenant.model.Tenant;
+import com.werfen.tenant.features.model.Tenant;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.UUID;

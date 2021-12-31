@@ -9,6 +9,4 @@ public class TenantApplication {
     public static void main(String[] args) {
         SpringApplication.run(TenantApplication.class, args);
     }
-
-
 }
