@@ -14,6 +14,15 @@ spring:
         jwt:
           issuer-uri: https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_NLvOVvUVE
 
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      expose: prometheus
+      exposure:
+        include: "*"
 server:
   port: 9090
 

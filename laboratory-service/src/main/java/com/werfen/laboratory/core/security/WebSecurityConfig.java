@@ -26,8 +26,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.csrf().disable().
                 authorizeRequests()
-                .antMatchers("/actuator/**").hasIpAddress("127.0.0.1")
-                .antMatchers("/h2/**").hasIpAddress("127.0.0.1")
+                .antMatchers("/actuator/**").permitAll()
+                .antMatchers("/h2/**").permitAll()
                 .antMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/webjars/**").permitAll()

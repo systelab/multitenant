@@ -18,6 +18,7 @@ public class SecurityConfiguration {
     @Bean
     public SecurityWebFilterChain securityWebFilterChain(ServerHttpSecurity http) {
         http.authorizeExchange()
+                .pathMatchers("/actuator/**").permitAll()
                 .pathMatchers("/swagger").permitAll()
                 .pathMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**", "/swagger-resources/**").permitAll()
                 .pathMatchers("/favicon.ico").permitAll()

@@ -6,6 +6,17 @@ eureka:
 spring:
   application:
     name: tenant-service
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      expose: prometheus
+      exposure:
+        include: "*"
+
 server:
   port: 7070
 

@@ -4,6 +4,16 @@ spring:
 server:
   port: 8761
 
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      expose: prometheus
+      exposure:
+        include: "*"
+
 eureka:
   client:
     register-with-eureka: false
