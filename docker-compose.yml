@@ -134,3 +134,11 @@ services:
       - /var/lib/grafana
     links:
       - prometheus
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    ports:
+      - "80:80"
+    privileged: true
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf
