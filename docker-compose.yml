@@ -19,7 +19,7 @@ services:
     ports:
       - "6379:6379"
   discovery1:
-    image: discovery-service:0.0.1-SNAPSHOT
+    image: discovery-service:0.0.2-SNAPSHOT
     container_name: discovery1
     ports:
       - "8761:8761"
@@ -27,7 +27,7 @@ services:
       - server.port=8761
       - eureka.client.serviceUrl.defaultZone=http://discovery2:8762/eureka/
   discovery2:
-    image: discovery-service:0.0.1-SNAPSHOT
+    image: discovery-service:0.0.2-SNAPSHOT
     container_name: discovery2
     ports:
       - "8762:8762"
@@ -35,7 +35,7 @@ services:
       - server.port=8762
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/
   tenant1:
-    image: tenant-service:0.0.1-SNAPSHOT
+    image: tenant-service:0.0.2-SNAPSHOT
     container_name: tenant1
     ports:
       - "7070:7070"
@@ -47,7 +47,7 @@ services:
     depends_on:
       - redis
   tenant2:
-    image: tenant-service:0.0.1-SNAPSHOT
+    image: tenant-service:0.0.2-SNAPSHOT
     container_name: tenant2
     ports:
       - "7071:7071"
