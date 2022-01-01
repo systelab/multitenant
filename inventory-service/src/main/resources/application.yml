@@ -1,0 +1,76 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/
+
+server:
+  port: 8060
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
+  # Enable HTTP/2 support, if the current environment supports it
+  http2:
+    enabled: true
+  error:
+    whitelabel.enabled: false
+    include-stacktrace: always
+  max-http-header-size: 40000
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      expose: prometheus
+      exposure:
+        include: "*"
+
+springdoc:
+  swagger-ui:
+    tagsSorter: alpha
+
+
+spring:
+  application:
+    name: inventory-service
+  main:
+    #Avoid DataSource issue #1142 overriding bean definition
+    allow-bean-definition-overriding: true
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/inventory
+    username: inventory
+    password: inventory
+    driver-class-name: org.postgresql.Driver
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://cognito-idp.eu-central-1.amazonaws.com/eu-central-1_NLvOVvUVE
+  servlet:
+    multipart:
+      max-file-size: 40MB
+      max-request-size: 40MB
+  web:
+    locale: en
+    resources:
+      cache:
+        cachecontrol:
+          max-age: 120
+          must-revalidate: true
+  sql:
+    init:
+      mode: never
+
+inventory:
+  maintenance:
+    cron:
+      # Check https://www.baeldung.com/cron-expressions
+      expression: "0/20 * * * * *"

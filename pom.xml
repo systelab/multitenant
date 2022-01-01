@@ -12,5 +12,6 @@
         <module>laboratory-service</module>
         <module>gateway-service</module>
         <module>tenant-service</module>
+        <module>inventory-service</module>
     </modules>
 </project>
