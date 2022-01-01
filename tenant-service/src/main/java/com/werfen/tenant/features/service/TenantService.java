@@ -15,16 +15,14 @@ public class TenantService {
     private TenantRepository repo;
 
     public Mono<Tenant> save(Tenant tenant){
-        return Mono.just(repo.save(tenant));
+        return repo.save(tenant);
     }
-
 
     public Mono<Tenant> get(UUID id){
-        return Mono.justOrEmpty(repo.findById(id));
+        return repo.findById(id);
     }
 
-    public Mono<Void> delete(UUID id){
-        repo.deleteById(id);
-        return Mono.empty();
+    public Mono<Boolean> delete(UUID id){
+        return repo.deleteById(id).map(value->value==1);
     }
 }

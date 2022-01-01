@@ -28,7 +28,7 @@ public class TenantController {
     }
 
     @DeleteMapping("tenants/{id}")
-    public Mono<Void> delete(@PathVariable("id") UUID id) {
+    public Mono<Boolean> delete(@PathVariable("id") UUID id) {
         return tenantService.delete(id);
     }
 }
