@@ -1,17 +1,30 @@
 version: "3"
 services:
-  db:
+  dblaboratory:
     image: postgres:14.1
-    container_name: db
+    container_name: dblaboratory
     restart: always
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_DB=multitenant
-      - POSTGRES_USER=multitenant
-      - POSTGRES_PASSWORD=multitenant
+      - POSTGRES_DB=laboratory
+      - POSTGRES_USER=laboratory
+      - POSTGRES_PASSWORD=laboratory
     volumes:
       - ./data:/var/lib/postgresql/data
+  dbinventory:
+    image: postgres:14.1
+    container_name: dbinventory
+    restart: always
+    ports:
+      - "5433:5433"
+    environment:
+      - POSTGRES_DB=inventory
+      - POSTGRES_USER=inventory
+      - POSTGRES_PASSWORD=inventory
+    volumes:
+      - ./data2:/var/lib/postgresql/data
+    command: -p 5433
   redis:
     image: redis:6.2.6
     container_name: redis
@@ -64,13 +77,13 @@ services:
     ports:
       - "8080:8080"
     depends_on:
-      - db
+      - dblaboratory
     environment:
       - server.port=8080
       - spring.sql.init.mode=always
-      - spring.datasource.url=jdbc:postgresql://db:5432/multitenant
-      - spring.datasource.username=multitenant
-      - spring.datasource.password=multitenant
+      - spring.datasource.url=jdbc:postgresql://dblaboratory:5432/laboratory
+      - spring.datasource.username=laboratory
+      - spring.datasource.password=laboratory
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
   laboratory2:
     image: laboratory-service:1.0
@@ -78,13 +91,13 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - db
+      - dblaboratory
     environment:
       - server.port=8081
       - spring.sql.init.mode=never
-      - spring.datasource.url=jdbc:postgresql://db:5432/multitenant
-      - spring.datasource.username=multitenant
-      - spring.datasource.password=multitenant
+      - spring.datasource.url=jdbc:postgresql://dblaboratory:5432/laboratory
+      - spring.datasource.username=laboratory
+      - spring.datasource.password=laboratory
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
   laboratory3:
     image: laboratory-service:1.0
@@ -92,14 +105,43 @@ services:
     ports:
       - "8082:8082"
     depends_on:
-      - db
+      - dblaboratory
     environment:
       - server.port=8082
       - spring.sql.init.mode=never
-      - spring.datasource.url=jdbc:postgresql://db:5432/multitenant
-      - spring.datasource.username=multitenant
-      - spring.datasource.password=multitenant
+      - spring.datasource.url=jdbc:postgresql://dblaboratory:5432/laboratory
+      - spring.datasource.username=laboratory
+      - spring.datasource.password=laboratory
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+  inventory1:
+    image: inventory-service:1.0
+    container_name: inventory1
+    ports:
+      - "8060:8060"
+    depends_on:
+      - dbinventory
+    environment:
+      - server.port=8060
+      - spring.sql.init.mode=always
+      - spring.datasource.url=jdbc:postgresql://dbinventory:5433/inventory
+      - spring.datasource.username=inventory
+      - spring.datasource.password=inventory
+      - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+  inventory2:
+    image: inventory-service:1.0
+    container_name: inventory2
+    ports:
+      - "8061:8061"
+    depends_on:
+      - dbinventory
+    environment:
+      - server.port=8061
+      - spring.sql.init.mode=never
+      - spring.datasource.url=jdbc:postgresql://dbinventory:5433/inventory
+      - spring.datasource.username=inventory
+      - spring.datasource.password=inventory
+      - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+
   gateway1:
     image: gateway-service:0.0.1-SNAPSHOT
     container_name: gateway1
