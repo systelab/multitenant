@@ -38,7 +38,7 @@ public class GatewayConfig {
                 .bodyToMono(TenantDTO.class).map(TenantDTO::getSchema)
                 .map(id -> {
                     System.out.println(id);
-                    exchange.getRequest().mutate().headers(h -> h.set("X-TenantID", "tenant1"));
+                    exchange.getRequest().mutate().headers(h -> h.set("X-TenantID", exchange.getRequest().getHeaders().getFirst("X-TenantID")));
                     return exchange;
                 })
                 .flatMap(chain::filter);
