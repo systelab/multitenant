@@ -57,6 +57,8 @@ services:
       - redis.host=redis
       - redis.port=6379
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+      - opentracing.jaeger.http-sender.url=http://jaeger:14268/api/traces
+
     depends_on:
       - redis
   tenant2:
@@ -69,6 +71,8 @@ services:
       - redis.host=redis
       - redis.port=6379
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+      - opentracing.jaeger.http-sender.url=http://jaeger:14268/api/traces
+
     depends_on:
       - redis
   laboratory1:
@@ -127,6 +131,7 @@ services:
       - spring.datasource.username=inventory
       - spring.datasource.password=inventory
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+      - opentracing.jaeger.http-sender.url=http://jaeger:14268/api/traces
   inventory2:
     image: inventory-service:1.0
     container_name: inventory2
@@ -141,6 +146,7 @@ services:
       - spring.datasource.username=inventory
       - spring.datasource.password=inventory
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+      - opentracing.jaeger.http-sender.url=http://jaeger:14268/api/traces
 
   gateway1:
     image: gateway-service:0.0.1-SNAPSHOT
@@ -150,6 +156,7 @@ services:
     environment:
       - server.port=9090
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+      - opentracing.jaeger.http-sender.url=http://jaeger:14268/api/traces
   gateway2:
     image: gateway-service:0.0.1-SNAPSHOT
     container_name: gateway2
@@ -158,6 +165,7 @@ services:
     environment:
       - server.port=9091
       - eureka.client.serviceUrl.defaultZone=http://discovery1:8761/eureka/,http://discovery2:8762/eureka/
+      - opentracing.jaeger.http-sender.url=http://jaeger:14268/api/traces
   prometheus:
     image: prom/prometheus:v2.32.1
     container_name: prometheus
@@ -176,6 +184,14 @@ services:
       - /var/lib/grafana
     links:
       - prometheus
+  jaeger:
+    image: jaegertracing/all-in-one:1.29
+    container_name: jaeger
+    ports:
+    - "6831:6831/udp"
+    - "6832:6832/udp"
+    - "16686:16686"
+    - "14268:14268"
   nginx:
     image: nginx:1.21.5
     container_name: nginx
