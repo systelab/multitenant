@@ -32,7 +32,6 @@ public class EntityInterceptor {
                 }
             }
 
-
             @Override
             public boolean onFlushDirty(Object entity, Serializable id, Object[] currentState, Object[] previousState, String[] propertyNames, Type[] types) {
                 if (entity instanceof TenantSupport) {
@@ -57,6 +56,5 @@ public class EntityInterceptor {
         jpaPropertiesMap.put("hibernate.ejb.interceptor", hibernateInterceptor());
         return factory.dataSource(dataSource).packages("com.werfen.inventory").properties(jpaPropertiesMap).build();
     }
-
 
 }

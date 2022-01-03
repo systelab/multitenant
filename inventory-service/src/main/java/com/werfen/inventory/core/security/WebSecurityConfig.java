@@ -37,8 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/*.woff2", "/*.woff", "/*.eot", "/*.ttf").permitAll()
                 .antMatchers("/assets/**", "/i18n/**").permitAll()
                 .antMatchers(HttpMethod.OPTIONS, "/api/v1/**").permitAll()
-                .antMatchers("/api/v1/**").permitAll()
-
                 .anyRequest().authenticated()
                 .and().oauth2ResourceServer().jwt(jwt -> {
                     jwt.jwtAuthenticationConverter(grantedAuthoritiesExtractor());

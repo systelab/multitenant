@@ -2,7 +2,6 @@ package com.werfen.inventory.features.product.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.werfen.inventory.core.TenantSupport;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Filter;
