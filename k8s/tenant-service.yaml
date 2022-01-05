@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tenant-service
+spec:
+  selector:
+    app: tenant-app
+  ports:
+  - protocol: "TCP"
+    port: 8887
+    targetPort: 7070
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tenant-app
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true"
+spec:
+  selector:
+    matchLabels:
+      app: tenant-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: tenant-app
+    spec:
+      containers:
+      - name: tenant-app
+        image: tenant-service:0.0.2-SNAPSHOT
+        env:
+          - name: server.port
+            value: "7070"
+          - name: redis.host
+            value: "redis-service"
+          - name: redis.port
+            value: "6379"
+          - name: eureka.client.enabled
+            value: "false"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 7070

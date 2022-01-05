@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: laboratory-service
+spec:
+  selector:
+    app: laboratory-app
+  ports:
+  - protocol: "TCP"
+    port: 8886
+    targetPort: 8080
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: laboratory-app
+  annotations:
+    "sidecar.jaegertracing.io/inject": "true"
+spec:
+  selector:
+    matchLabels:
+      app: laboratory-app
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: laboratory-app
+    spec:
+      containers:
+      - name: laboratory-app
+        image: laboratory-service:1.0
+        env:
+          - name: server.port
+            value: "8080"
+          - name: spring.sql.init.mode
+            value: "always"
+          - name: spring.datasource.continueOnError
+            value: "true"
+          - name: spring.datasource.url
+            value: "jdbc:postgresql://dblaboratory:5432/laboratory"
+          - name: spring.datasource.username
+            value: "laboratory"
+          - name: spring.datasource.password
+            value: "laboratory"
+          - name: eureka.client.enabled
+            value: "false"
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
