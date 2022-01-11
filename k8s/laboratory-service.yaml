@@ -31,14 +31,12 @@ spec:
     spec:
       containers:
       - name: laboratory-app
-        image: laboratory-service:1.0
+        image: laboratory-service:1.1
         env:
           - name: server.port
             value: "8080"
           - name: spring.sql.init.mode
             value: "always"
-          - name: spring.datasource.continueOnError
-            value: "true"
           - name: spring.datasource.url
             value: "jdbc:postgresql://dblaboratory:5432/laboratory"
           - name: spring.datasource.username

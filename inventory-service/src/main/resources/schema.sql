@@ -1,4 +1,4 @@
-create table products
+create table if not exists products
 (
     id        int4        not null,
     name      varchar(45) not null,

@@ -46,6 +46,11 @@ First generate a token by connection to AWS Cognito. After that authorize Swagge
 
 docker run --name db -p 5432:5432 -e POSTGRES_DB=multitenant -e POSTGRES_USER=multitenant -e POSTGRES_PASSWORD=multitenant -d postgres
 
+docker run --name db -p 5432:5432 -e POSTGRES_DB=inventory -e POSTGRES_USER=inventory -e POSTGRES_PASSWORD=inventory -d postgres
+
+docker run --name inventory -p 8060:8060 -e spring.datasource.url=jdbc:postgresql://docker.for.mac.localhost:5432/inventory inventory:0.0.1-SNAPSHOT
+
+
 docker run --name redis -p 6379:6379 -d redis
 
 ### Build docker image

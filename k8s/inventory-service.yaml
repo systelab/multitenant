@@ -31,14 +31,12 @@ spec:
     spec:
       containers:
       - name: inventory-app
-        image: inventory-service:1.0
+        image: inventory-service:1.2
         env:
           - name: server.port
             value: "8080"
           - name: spring.sql.init.mode
             value: "always"
-          - name: spring.datasource.continueOnError
-            value: "true"
           - name: spring.datasource.url
             value: "jdbc:postgresql://dbinventory:5433/inventory"
           - name: spring.datasource.username
