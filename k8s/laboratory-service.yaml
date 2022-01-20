@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: laboratory-app
-        image: laboratory-service:1.1
+        image: laboratory-service:1.2
         env:
           - name: server.port
             value: "8080"

@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
       - name: gateway-app
-        image: gateway-service:0.0.9-SNAPSHOT
+        image: gateway-service:0.0.10-SNAPSHOT
         env:
           - name: server.port
             value: "9090"
