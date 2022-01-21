@@ -1,7 +1,7 @@
 
 # Multitenant application sample
 
-This project is an application skeleton for a typical [Spring Boot][sboot] backend application. You can use it
+This project is an application skeleton for a typical [Spring Boot][sboot] backend application oriented to microservices and to test different tenancy models. You can use it
 to quickly bootstrap your projects and dev environment.
 
 
@@ -34,24 +34,8 @@ mvn clean install
 
 for each service.
 
-## API
-
-You will find the swagger UI at http://localhost:9090/swagger
-
-First generate a token by connection to AWS Cognito. After that authorize Swagger by copying the bearer.
 
 ## Docker
-
-### Running Postgres and Redis as a Docker image
-
-docker run --name db -p 5432:5432 -e POSTGRES_DB=multitenant -e POSTGRES_USER=multitenant -e POSTGRES_PASSWORD=multitenant -d postgres
-
-docker run --name db -p 5432:5432 -e POSTGRES_DB=inventory -e POSTGRES_USER=inventory -e POSTGRES_PASSWORD=inventory -d postgres
-
-docker run --name inventory -p 8060:8060 -e spring.datasource.url=jdbc:postgresql://docker.for.mac.localhost:5432/inventory inventory:0.0.1-SNAPSHOT
-
-
-docker run --name redis -p 6379:6379 -d redis
 
 ### Build docker image
 
@@ -67,6 +51,22 @@ Use the provided docker compose configuration and run:
 ```bash
 docker compose up
 ```
+
+### Run in K8s
+
+Use the provided yaml files in the folder k8s to apply the configuration for the deployments and services needed. 
+Use the scripts deploy-all.sh and remove-all.sh when needed.
+
+
+### Running Postgres and Redis as a Docker image
+
+docker run --name db -p 5432:5432 -e POSTGRES_DB=multitenant -e POSTGRES_USER=multitenant -e POSTGRES_PASSWORD=multitenant -d postgres
+
+docker run --name db -p 5432:5432 -e POSTGRES_DB=inventory -e POSTGRES_USER=inventory -e POSTGRES_PASSWORD=inventory -d postgres
+
+docker run --name inventory -p 8060:8060 -e spring.datasource.url=jdbc:postgresql://docker.for.mac.localhost:5432/inventory inventory:0.0.1-SNAPSHOT
+
+docker run --name redis -p 6379:6379 -d redis
 
 
 [git]: https://git-scm.com/
